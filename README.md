@@ -26,5 +26,5 @@ Estudantes de cursos densos, como **Ciência da Computação**, frequentemente e
 ### Instalação e Uso
 1. Clone este repositório:
    ```bash
-   git clone [https://github.com/SEU_USUARIO/projeto-bootcamp.git](https://github.com/SEU_USUARIO/projeto-bootcamp.git)
+   git clone [https://github.com/Samuelrsouzaa/projeto-bootcamp.git](https://github.com/Samuelrsouzaa/projeto-bootcamp.git)
    cd projeto-bootcamp
