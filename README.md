@@ -1,30 +1,16 @@
-# GoNext Lite 🚀
+# GoNext Lite 🌤️
 
-O **GoNext Lite** é uma aplicação de linha de comando (CLI) minimalista projetada para auxiliar estudantes de tecnologia na organização de suas tarefas diárias, combatendo a sobrecarga cognitiva e a procrastinação.
+O **GoNext Lite** é um gerenciador de tarefas via Interface de Linha de Comando (CLI) desenvolvido em Python, projetado para auxiliar estudantes de tecnologia na organização de suas rotinas de estudos.
 
-## 🎯 O Problema Real
-Estudantes de cursos densos, como **Ciência da Computação**, frequentemente enfrentam dificuldades para gerenciar múltiplas entregas, provas e projetos de programação. A falta de uma ferramenta simples, que não exija distrações de navegadores ou redes sociais, pode comprometer o desempenho acadêmico. O GoNext Lite resolve isso oferecendo um ambiente focado e funcional direto no terminal.
+> **Link do Deploy / Execução:** Para executar esta aplicação CLI de qualquer lugar, basta clonar este repositório público e seguir as instruções de execução abaixo.
 
-## ✨ Funcionalidades
-- **Adicionar Tarefas:** Registro rápido de pendências com validação (impede títulos vazios).
-- **Listar Tarefas:** Visualização clara do status de cada atividade.
-- **Concluir Tarefas:** Sistema simples de marcação de progresso.
-- **Interface CLI:** Execução leve e rápida, ideal para desenvolvedores.
+## 🚀 Novas Funcionalidades (Entrega Intermediária)
+- **Integração com API Pública Externa:** Conexão nativa com a API do `wttr.in` para buscar e exibir em tempo real a previsão do tempo e temperatura da cidade informada pelo usuário, auxiliando no planejamento contextual das tarefas.
+- **Testes de Integração Automatizados:** Implementação de suite de testes com `pytest` para garantir a integridade da comunicação HTTP com o serviço de clima.
 
-## 🛠️ Tecnologias Utilizadas
-- **Linguagem:** Python 3.11+
-- **Testes Automatizados:** Pytest (Garante que a lógica de negócio está correta).
-- **Análise Estática (Linting):** Ruff (Garante que o código segue padrões profissionais de estilo).
-- **Integração Contínua (CI):** GitHub Actions (Valida automaticamente o código em cada atualização).
-- **Versionamento:** SemVer (Versionamento Semântico).
+## 🛠️ Pré-requisitos e Como Executar
 
-## 🚀 Como Executar o Projeto
-
-### Pré-requisitos
-- Python 3.11 ou superior instalado.
-
-### Instalação e Uso
-1. Clone este repositório:
+1. **Clonar o Repositório:**
    ```bash
    git clone [https://github.com/Samuelrsouzaa/projeto-bootcamp.git](https://github.com/Samuelrsouzaa/projeto-bootcamp.git)
-   cd projeto-bootcamp
+   cd projeto-bootcamp/projeto-bootcamp
