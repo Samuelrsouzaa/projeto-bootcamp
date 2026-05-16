@@ -1,19 +1,32 @@
 name: CI
-on: [push]
+
+on:
+  push:
+    branches: [ "main", "entrega-intermediaria" ]
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
+
       - name: Install
         run: |
           pip install pytest ruff requests
+
       - name: Lint
-        run: ruff check projeto-bootcamp/
+        run: |
+          cd projeto-bootcamp
+          ruff check .
+
       - name: Test
         run: |
           cd projeto-bootcamp
