@@ -10,8 +10,11 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install
-        run: pip install pytest ruff
+        run: |
+          pip install pytest ruff requests
       - name: Lint
-        run: ruff check .
+        run: ruff check projeto-bootcamp/
       - name: Test
-        run: pytest
+        run: |
+          cd projeto-bootcamp
+          pytest
