@@ -10,8 +10,8 @@ O **GoNext Lite** é um gerenciador de tarefas via Interface de Linha de Comando
 - **Integração Contínua (CI):** Testes automatizados rodando no GitHub Actions.
 
 ## 👥 Equipe
-- Samuel [Seu Sobrenome] - Matrícula: [Sua Matrícula]
-- [Nome da sua Dupla] - Matrícula: [Matrícula dela]
+- Samuel Rodrigues de Souza - Matrícula: 22508688
+- Patricio Luca dos Santos Vieira - Matrícula: 22509856
 
 ## 🛠️ Nova Stack (Banco de Dados)
 - **Supabase** (PostgreSQL) para armazenamento dos dados.
