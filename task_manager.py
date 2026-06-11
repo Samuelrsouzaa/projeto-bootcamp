@@ -1,7 +1,16 @@
 import sys
+import os
+from dotenv import load_dotenv
+from supabase import create_client, Client
 from weather_service import obter_clima
 
-TAREFAS = []
+# Load environment variables from .env file
+load_dotenv()
+
+# Initialize Supabase client
+url: str = os.environ.get("SUPABASE_URL", "")
+key: str = os.environ.get("SUPABASE_KEY", "")
+supabase: Client = create_client(url, key) if url and key else None
 
 def exibir_menu():
     print("\n" + "="*35)
@@ -14,7 +23,11 @@ def exibir_menu():
     print("="*35)
 
 def main():
-    print("Bem-vindo ao GoNext Lite!")
+    print("Bem-vindo ao GoNext Lite integrado com Banco de Dados!")
+    
+    if not supabase:
+        print("⚠️  Aviso: As variáveis SUPABASE_URL e SUPABASE_KEY não foram encontradas no arquivo .env.")
+        print("Certifique-se de configurar o arquivo .env corretamente para o banco funcionar.")
     
     cidade = input("Digite sua cidade para verificar o clima atual (ou Enter para pular): ")
     if cidade.strip():
@@ -29,33 +42,50 @@ def main():
         if opcao == "1":
             titulo = input("Título da tarefa: ").strip()
             if titulo:
-                TAREFAS.append({"titulo": titulo, "concluida": False})
-                print(f"✅ Tarefa '{titulo}' adicionada com sucesso!")
+                if supabase:
+                    try:
+                        data, count = supabase.table("tarefas").insert({"titulo": titulo, "concluida": False}).execute()
+                        print(f"✅ Tarefa '{titulo}' salva na nuvem com sucesso!")
+                    except Exception as e:
+                        print(f"❌ Erro ao salvar no banco: {e}")
+                else:
+                    print("❌ Erro: Supabase não configurado.")
             else:
                 print("❌ Erro: O título não pode ser vazio.")
                 
         elif opcao == "2":
-            if not TAREFAS:
-                print("Nenhuma tarefa cadastrada.")
+            if supabase:
+                try:
+                    response = supabase.table("tarefas").select("*").order("id").execute()
+                    tarefas = response.data
+                    if not tarefas:
+                        print("Nenhuma tarefa cadastrada no banco.")
+                    else:
+                        print("\n📋 SUAS TAREFAS NA NUVEM:")
+                        for tarefa in tarefas:
+                            status = "🟩 [Concluída]" if tarefa.get("concluida") else "🟥 [Pendente]"
+                            print(f"[{tarefa['id']}] {tarefa['titulo']} - {status}")
+                except Exception as e:
+                    print(f"❌ Erro ao listar tarefas: {e}")
             else:
-                print("\n📋 SUAS TAREFAS:")
-                for i, tarefa in enumerate(TAREFAS, start=1):
-                    status = "🟩 [Concluída]" if tarefa["concluida"] else "🟥 [Pendente]"
-                    print(f"{i}. {tarefa['titulo']} - {status}")
+                print("❌ Erro: Supabase não configurado.")
                     
         elif opcao == "3":
-            if not TAREFAS:
-                print("Nenhuma tarefa para concluir.")
-                continue
-            try:
-                num = int(input("Número da tarefa que deseja concluir: "))
-                if 1 <= num <= len(TAREFAS):
-                    TAREFAS[num-1]["concluida"] = True
-                    print(f"✅ Tarefa '{TAREFAS[num-1]['titulo']}' concluída!")
-                else:
-                    print("❌ Número de tarefa inválido.")
-            except ValueError:
-                print("❌ Por favor, digite um número válido.")
+            if supabase:
+                try:
+                    num = input("ID da tarefa que deseja concluir: ").strip()
+                    if num.isdigit():
+                        response = supabase.table("tarefas").update({"concluida": True}).eq("id", int(num)).execute()
+                        if response.data:
+                            print(f"✅ Tarefa ID {num} marcada como concluída na nuvem!")
+                        else:
+                            print("❌ Tarefa não encontrada com esse ID.")
+                    else:
+                        print("❌ ID inválido. Digite o número que aparece entre colchetes [].")
+                except Exception as e:
+                    print(f"❌ Erro ao atualizar tarefa: {e}")
+            else:
+                 print("❌ Erro: Supabase não configurado.")
                 
         elif opcao == "4":
             print("Saindo do GoNext Lite. Até logo! 🚀")
